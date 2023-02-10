@@ -12,3 +12,12 @@
     --blue: #4ea8de;
     --blue-dark: #1e6f9f;
 }
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+/* body {
+    background: var(--gray-600);
+} */
