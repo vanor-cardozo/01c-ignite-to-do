@@ -1,0 +1,21 @@
+.container {
+    align-content: space-around;
+    background: #fff;
+    width: 70%;
+}
+
+input {
+    background: var(--gray-500);
+    color: var(--gray-300);
+    border: solid var(--gray-700) 1px;
+    border-radius: 4px;
+    padding: 10px;
+}
+
+button {
+    background: var(--blue);
+    color: var(--gray-100);
+    border-radius: 4px;
+    padding: 10px;
+    border: solid var(--blue) 1px;
+}
