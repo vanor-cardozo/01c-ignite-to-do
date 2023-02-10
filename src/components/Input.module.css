@@ -19,3 +19,7 @@ button {
     padding: 10px;
     border: solid var(--blue) 1px;
 }
+
+.taskListItem button {
+    background: var(--danger);
+}

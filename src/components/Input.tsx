@@ -26,12 +26,19 @@ export function Input() {
         const tempTasks = [...tasks];
         tempTasks[taskIndex].done = !tempTasks[taskIndex].done;
         setTasks(tempTasks)
-        console.log(tempTasks)
     }
 
     const handleDelete = (taskId) => {
         const newListTasks = tasks.filter(task => task.id !== taskId)
         setTasks(newListTasks)
+    }
+
+    const countTasks = () => {
+        return tasks.length
+    }
+
+    const countTasksDone = () => {
+        return tasks.filter((task) => task.done === true).length
     }
 
     return (
@@ -53,12 +60,17 @@ export function Input() {
             </form>
             <div>
                 <div>
-                    <p>Tarefas criadas {tasks.length}</p>
-                    {/* <p>`Concluídas`</p> */}
+                    <div>
+                        <strong>Tarefas criadas</strong>
+                        <p>{countTasks()}</p>
+                    </div>
+                    <div>
+                        <strong>Concluídas</strong>
+                        <p>{countTasksDone()} de {countTasks()}</p>
+                    </div>
                 </div>
                 {tasks.map((task)=> (
-                    <div key={task.id}>
-
+                    <div key={task.id} className={styles.taskListItem}>
                         <>
                             <input
                                 type="checkbox"
@@ -69,7 +81,7 @@ export function Input() {
                             <label htmlFor={task.id}>{task.name}</label>
                         </>
 
-                    <button onClick={()=> handleDelete(task.id)}>delete</button>
+                    <button onClick={()=> handleDelete(task.id)}>deletar</button>
                     </div>
                 ))}
             </div>
