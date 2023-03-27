@@ -1,24 +1,55 @@
 .container {
     display: flex;
     flex-direction: column;
-    margin-top: -25px;
-
-}
-
-.container2 {
-    display: flex;
-    justify-content: center;
-    flex-direction: row;
+    max-width: 1080px;
+    margin: auto;
 }
 
 .container3 {
     display: flex;
-    justify-content: space-evenly;
+    justify-content: space-between;
     margin-top: 30px;
+    margin-bottom: 15px;
 }
 
 .container4 {
     display: flex;
+}
+
+form {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+form label {
+    flex: 1;
+    align-items: center;
+}
+
+input {
+    width: 96%;
+    background: var(--gray-500);
+    color: var(--gray-300);
+    border: solid var(--gray-700) 1px;
+    border-radius: 4px;
+    padding: 13px;
+    margin-right: .5rem;
+    cursor: pointer;
+}
+
+button {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    background: var(--blue);
+    color: var(--gray-100);
+    border-radius: 4px;
+    padding: 10px;
+    border: solid var(--blue) 1px;
+    width: 80px;
+
+    cursor: pointer;
 }
 
 .counterBlue {
@@ -39,53 +70,60 @@
     margin-left: 5px;
 }
 
-input {
-    background: var(--gray-500);
-    color: var(--gray-300);
-    border: solid var(--gray-700) 1px;
-    border-radius: 4px;
-    padding: 13px;
-    width: 700px;
-    margin-right: .5rem;
-}
-
-form {
-    display: flex;
-    align-items: center;
-}
-
-button {
-    display: flex;
-    align-items: center;
-    justify-content: space-evenly;
-    background: var(--blue);
-    color: var(--gray-100);
-    border-radius: 4px;
-    padding: 10px;
-    border: solid var(--blue) 1px;
-    width: 80px;
-}
-
 .taskListItem {
     display: flex;
-    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 0.5rem;
+    padding: 0.5rem;
     border: solid 1px var(--gray-400);
+    border-radius: 4px;
     background: var(--gray-500);
     color: var(--gray-100);
-    width: 700px;
-    padding-top: .5rem;
-    padding-bottom: .5rem;
-    border-radius: 4px;
 }
 
-.taskListItem input {
-    height: 25px;
-    width: 25px;
-    background-color: #eee;
+.checkAndTextDiv {
+    display: flex;
+    width: 97%;
+    align-items: center;
 }
 
-.taskListItem p {
-    background: #900;
+.checkAndTextDiv p {
+    word-wrap: break-word;
+    padding: 1rem;
+}
+
+.checkboxRound {
+    width: 1rem;
+    height: 1rem;
+    border-radius: 50%;
+    background: var(--gray-500);
+    vertical-align: middle;
+    border: 2px solid var(--blue);
+    appearance: none;
+    cursor: pointer;
+}
+
+.checkboxRound:checked {
+    border: 2px solid var(--purple);
+    background: var(--purple);
+    background-image: url('../assets//check.svg');
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+}
+
+.taskDone {
+    text-decoration: line-through;
+    color: var(--gray-300);
+}
+
+.trashIcon {
+    cursor: pointer;
+}
+
+.trashIcon:hover {
+    color: var(--purple);
 }
 
 .emptyInfo {

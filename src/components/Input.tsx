@@ -6,8 +6,14 @@ import {v4 as uuidv4} from 'uuid';
 
 import {PlusCircle, ClipboardText, Trash} from 'phosphor-react'
 
+interface Task {
+    id: string
+    name: string
+    done: Boolean
+}
+
 export function Input() {
-    const [tasks, setTasks] = React.useState([]);
+    const [tasks, setTasks] = React.useState<Task[]>([]);
     const [newTask, setNewTask] = React.useState({id: uuidv4(), name: '', done: false});
 
     const handleCreateTask = (e) => {
@@ -16,7 +22,7 @@ export function Input() {
         setNewTask({id: uuidv4(), name: '', done: false})
     }
 
-    const handleChangeTask = (e) => {
+    const handleChangeTask = (e: { target: { value: string; }; }) => {
         setNewTask({...newTask, name: e.target.value})
     }
 
@@ -24,12 +30,13 @@ export function Input() {
         const taskIndex = tasks.findIndex((task) => {
             return task.id === e.target.id
         });
+        console.log(taskIndex)
         const tempTasks = [...tasks];
         tempTasks[taskIndex].done = !tempTasks[taskIndex].done;
         setTasks(tempTasks)
     }
 
-    const handleDelete = (taskId) => {
+    const handleDelete = (taskId: string) => {
         const newListTasks = tasks.filter(task => task.id !== taskId)
         setTasks(newListTasks)
     }
@@ -44,55 +51,61 @@ export function Input() {
 
     return (
         <div className={styles.container}>
-            <div className={styles.container2}>
-                <form>
-                    <label>
-                        <input
-                            type="text"
-                            placeholder="Adicione uma nova tarefa"
-                            onChange={handleChangeTask}
-                            value={newTask.name}
-                        />
-                    </label>
-                    {!!newTask.name ?
-                        <button type='submit' onClick={handleCreateTask}>Criar</button>
-                    :
-                        <button disabled>Criar <PlusCircle size={24}/> </button>
-                    }
-                </form>
+            <form>
+                <label>
+                    <input
+                        type="text"
+                        placeholder="Adicione uma nova tarefa"
+                        onChange={handleChangeTask}
+                        value={newTask.name}
+                    />
+                </label>
+                {!!newTask.name ?
+                    <button type='submit' onClick={handleCreateTask}>Criar</button>
+                :
+                    <button disabled>Criar <PlusCircle size={24}/> </button>
+                }
+            </form>
+
+            <div className={styles.container3}>
+                <div className={styles.container4}>
+                    <strong className={styles.counterBlue}>Tarefas criadas</strong>
+                    <strong className={styles.bgCounter}>{countTasks()}</strong>
+                </div>
+                <div className={styles.container4}>
+                    <strong className={styles.counterPurple}>Concluídas</strong>
+                    <strong className={styles.bgCounter}>{countTasksDone()} de {countTasks()}</strong>
+                </div>
             </div>
 
-                <div className={styles.container3}>
-                    <div className={styles.container4}>
-                        <strong className={styles.counterBlue}>Tarefas criadas</strong>
-                        <strong className={styles.bgCounter}>{countTasks()}</strong>
+            {tasks.length > 0 && tasks.map((task)=> (
+                <div key={task.id} className={styles.taskListItem}>
+                    <div className={styles.checkAndTextDiv}>
+                        <input
+                            type="checkbox"
+                            id={task.id}
+                            name={task.name}
+                            onClick={handleStatusDone}
+                            className={styles.checkboxRound}
+                        />
+                        {
+                            task.done ? 
+                                <p className={styles.taskDone}>{task.name}</p>
+                            :
+                                <p>{task.name}</p>
+                        }
+                            
                     </div>
-                    <div className={styles.container4}>
-                        <strong className={styles.counterPurple}>Concluídas</strong>
-                        <strong className={styles.bgCounter}>{countTasksDone()} de {countTasks()}</strong>
-                    </div>
+                    <Trash onClick={()=> handleDelete(task.id)} size={26} className={styles.trashIcon}/>
                 </div>
-                {tasks.length > 0 && tasks.map((task)=> (
-                    <div key={task.id} className={styles.taskListItem}>
-                        <label htmlFor={task.id}>
-                            <input
-                                type="checkbox"
-                                id={task.id}
-                                name={task.name}
-                                onClick={handleStatusDone}
-                            />
-                            <p>{task.name}</p>
-                        </label>
-                        <Trash onClick={()=> handleDelete(task.id)} size={20}/>
-                    </div>
-                ))}
-                {tasks.length === 0 &&
-                    <div className={styles.emptyInfo}>
-                        <ClipboardText size={50} weight="thin"/>
-                        <strong>Você ainda não tem tarefas cadastradas</strong>
-                        <p>Crie tarefas e organize seus itens a fazer</p>
-                    </div>
-                }
+            ))}
+            {tasks.length === 0 &&
+                <div className={styles.emptyInfo}>
+                    <ClipboardText size={50} weight="thin"/>
+                    <strong>Você ainda não tem tarefas cadastradas</strong>
+                    <p>Crie tarefas e organize seus itens a fazer</p>
+                </div>
+            }
         </div>
     )
 }
